@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reactive.Linq;
+﻿using System.Diagnostics;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 using Unity.Attributes;
 
 namespace WpfApp1.Components
@@ -22,18 +19,6 @@ namespace WpfApp1.Components
         {
             get => this.DataContext as FirstDataInputViewModel;
             set => this.DataContext = value;
-        }
-
-        public IObservable<NavigationEventArgs> OnNavigated
-        {
-            get
-            {
-                return Observable
-                    .FromEventPattern<NavigatedEventHandler, NavigationEventArgs>(
-                        h => this.NavigationService.Navigated += h,
-                        h => this.NavigationService.Navigated -= h)
-                    .Select(x => x.EventArgs);
-            }
         }
 
         ~FirstDataInput()

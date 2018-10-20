@@ -58,7 +58,7 @@
             where TWindow : NavigationWindow
         {
             var mainWindow = ApplicationContext.Instance.DependencyResolver.Resolve<TWindow>();
-            var navigationService = mainWindow.NavigationService;
+            var navigationService = mainWindow.NavigationService; // TODO: write helper to wire up logic to any navigation service
 
             UnityConfiguration.Container.RegisterInstance<INavigationService>(new NavigationServiceWrapper(navigationService));
 
@@ -69,10 +69,15 @@
 
             onLoaded.Subscribe(args =>
             {
-                var currentScope = ApplicationContext.Instance.CurrentPageScope;
+                var currentScope = ApplicationContext.Instance.CurrentPageScope; // TODO: should be scoped to page, not applicaiton
                 if (currentScope != null)
                 {
-                    currentScope.Resolve<CancellationTokenSource>().Cancel();
+                    var scopeCancellation = currentScope.Resolve<CancellationTokenSource>();
+                    if (!scopeCancellation.IsCancellationRequested)
+                    {
+                        scopeCancellation.Cancel();
+                    }
+
                     currentScope.Dispose();
                 }
             });
@@ -82,6 +87,8 @@
                 var currentScope = ApplicationContext.Instance.DependencyResolver.BeginScope();
                 ApplicationContext.Instance.CurrentPageScope = currentScope;
                 currentScope.BuildUp(args.Content.GetType(), args.Content);
+                var ns = NavigationService.GetNavigationService(args.Content as DependencyObject);
+                // TODO: wire up navigation for internal page navigations
             });
 
             app.MainWindow = mainWindow;
