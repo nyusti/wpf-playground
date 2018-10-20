@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity;
+using Unity.Exceptions;
 
 namespace WpfApp1.Configuration
 {
@@ -33,12 +34,25 @@ namespace WpfApp1.Configuration
 
         public object GetService(Type serviceType)
         {
-            return this.unityContainer.Resolve(serviceType);
+            try
+            {
+                return this.unityContainer.Resolve(serviceType);
+            }
+            catch (ResolutionFailedException)
+            {
+                // TODO: log
+                return null;
+            }
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
             return this.unityContainer.ResolveAll(serviceType);
+        }
+
+        public object BuildUp(Type serviceType, object existing)
+        {
+            return this.unityContainer.BuildUp(serviceType, existing);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Threading.Tasks;
-using System.Windows.Navigation;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Views;
 using WpfApp1.ViewModel;
 
 namespace WpfApp1.Components
@@ -10,9 +10,9 @@ namespace WpfApp1.Components
     public class FirstDataInputViewModel : ComponentViewModel
     {
         private readonly INumberServiceClient numberServiceClient;
-        private readonly NavigationService navigationService;
+        private readonly INavigationService navigationService;
 
-        public FirstDataInputViewModel(INumberServiceClient numberServiceClient, NavigationService navigationService)
+        public FirstDataInputViewModel(INumberServiceClient numberServiceClient, INavigationService navigationService)
         {
             this.numberServiceClient = numberServiceClient ?? throw new ArgumentNullException(nameof(numberServiceClient));
             this.navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
@@ -43,7 +43,7 @@ namespace WpfApp1.Components
 
         public RelayCommand GoToSecondPage => this.goToSecondPage ?? (this.goToSecondPage = new RelayCommand(() =>
         {
-            this.navigationService.Navigate(new Uri("Components/SecondPage.xaml", UriKind.RelativeOrAbsolute));
+            this.navigationService.NavigateTo("Components/SecondPage.xaml");
         }));
     }
 }

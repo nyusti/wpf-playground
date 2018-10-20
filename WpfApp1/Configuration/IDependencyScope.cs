@@ -8,5 +8,7 @@ namespace WpfApp1.Configuration
         object GetService(Type serviceType);
 
         IEnumerable<object> GetServices(Type serviceType);
+
+        object BuildUp(Type serviceType, object existing);
     }
 }

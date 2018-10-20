@@ -294,6 +294,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="ApplicationExtensions.cs" />
     <Compile Include="Components\FirstDataInputViewModel.cs" />
     <Compile Include="Components\SecondPage.xaml.cs">
       <DependentUpon>SecondPage.xaml</DependentUpon>
@@ -304,6 +305,7 @@
     <Compile Include="Configuration\IDependencyResolver.cs" />
     <Compile Include="Configuration\IDependencyScope.cs" />
     <Compile Include="Configuration\UnityConfiguration.cs" />
+    <Compile Include="NavigationServiceWrapper.cs" />
     <Compile Include="INumberServiceClient.cs" />
     <Compile Include="NumberServiceClient.cs" />
     <Compile Include="ViewModel\ComponentViewModel.cs" />

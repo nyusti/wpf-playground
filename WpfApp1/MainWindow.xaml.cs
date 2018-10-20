@@ -17,7 +17,6 @@ namespace WpfApp1
 
         private void MainWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(ServiceLocator.Current.GetInstance<FirstDataInput>());
             this.NavigationService.Navigate(new System.Uri("Components/FirstDataInput.xaml", System.UriKind.RelativeOrAbsolute));
         }
     }

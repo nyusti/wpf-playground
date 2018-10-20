@@ -8,12 +8,16 @@ namespace WpfApp1
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        public App()
         {
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.Run(this);
+            ApplicationContext.Instance.SetDependencyResolver(new DependencyResolver(UnityConfiguration.Container));
 
-            base.OnStartup(e);
+            var application = this;
+
+            application
+                .UseLogging()
+                .UseUnity(UnityConfiguration.Container)
+                .UseNavigationWindow<MainWindow>();
         }
     }
 }

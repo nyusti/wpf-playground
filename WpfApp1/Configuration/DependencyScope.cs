@@ -32,6 +32,11 @@ namespace WpfApp1.Configuration
         {
             return this.unityContainer.ResolveAll(serviceType);
         }
+
+        public object BuildUp(Type serviceType, object existing)
+        {
+            return this.unityContainer.BuildUp(serviceType, existing);
+        }
     }
 
     public static class DependencyScopeExtensions
@@ -39,6 +44,11 @@ namespace WpfApp1.Configuration
         public static T Resolve<T>(this IDependencyScope dependencyScope)
         {
             return (T)dependencyScope.GetService(typeof(T));
+        }
+
+        public static T BuildUp<T>(this IDependencyScope dependencyScope, T existing)
+        {
+            return (T)dependencyScope.BuildUp(typeof(T), existing);
         }
     }
 }
